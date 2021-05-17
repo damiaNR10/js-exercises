@@ -60,3 +60,8 @@ function slowOdd(n, ms = 100) {
         }
     });
 }
+
+// slowRand(5, 1000)
+//     .then(slowOdd)
+//     .then((result) => console.log(result))
+//     .catch((error) => console.log(error, "its ok, we handled it"))
