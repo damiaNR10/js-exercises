@@ -67,3 +67,4 @@ function slowOdd(n, ms = 100) {
 //     .catch((error) => console.log(error, "its ok, we handled it"))
 
 //Promise.all([x, y]).then(([xValue, yValue]) => console.log('All results: ', xValue, yValue))
+//Promise.race([x, y]).then((winner) => console.log('The winner is: ', winner))
