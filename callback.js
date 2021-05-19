@@ -86,3 +86,23 @@ function delayedError(ms = 1000, message) {
         setTimeout(() => reject(new Error(message)), ms);
     });
 }
+
+//3. Stwórz funkcję isEven(num), zwracającą obietnicę, która ma natychmiast być dotrzymana jeśli przekazana została liczba. 
+//Wartością ma być true jeśli liczba jest parzysta, false jeśli nieparzysta. Obietnica ma być natychmiast odrzucona jeśli is argument funkcji nie jest liczbą całkowitą.
+
+function isEven(num) {
+    return new Promise((resolve, reject) => {
+        if(Number.isInteger(num)) {
+            if(num % 2 == 0) {
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+        } else {
+            reject(new Error('Num must be integer'));
+        }
+    });
+}
+
+//4. Stwórz funkcję slowIsEven(num, ms=1000), która robi to samo co funkcja isEven ale po zadanym czasie w milisekundach. 
+//Wykorzystaj do implementacji funkcję isEven oraz wait.
