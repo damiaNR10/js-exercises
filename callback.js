@@ -68,3 +68,21 @@ function slowOdd(n, ms = 100) {
 
 //Promise.all([x, y]).then(([xValue, yValue]) => console.log('All results: ', xValue, yValue))
 //Promise.race([x, y]).then((winner) => console.log('The winner is: ', winner))
+
+//1. Stwórz funkcję wait(ms). Ma ona zwrócić oczekującą (pending) obietnicę, 
+//która ma być dotrzymana (resolved) po wybranej ilości milisekund. Obietnica zwrócona z tej funkcji nie powinna być nigdy odrzucona (rejected).
+
+function wait(ms = 1000) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(console.log("Resolved")), ms);
+    });
+}
+
+//2. Stwórz funkcję delayedError(ms, message), która ma zwracać oczekującą obietnicę i odrzucić ją po zadym czasie w milisekundach (ms) 
+//przekazując jej w wartości obiekt Error z zadaną wiadomością (message). Obietnica zwrócona z tej funkcji nie powinna być nigdy dotrzymana (resolved).
+
+function delayedError(ms = 1000, message) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => reject(new Error(message)), ms);
+    });
+}
