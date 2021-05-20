@@ -106,3 +106,20 @@ function isEven(num) {
 
 //4. Stwórz funkcję slowIsEven(num, ms=1000), która robi to samo co funkcja isEven ale po zadanym czasie w milisekundach. 
 //Wykorzystaj do implementacji funkcję isEven oraz wait.
+
+function slowIsEven(num, ms = 1000) {
+
+    // return new Promise((resolve, reject) => {
+    //     setTimeout(() => resolve(isEven(num)), ms);
+    // });
+
+    isEven(num)
+        .then(wait(ms))
+        .then((result) => console.log(result))
+        .catch((error) => console.log(error, "its ok, we handled it"));
+
+    // wait(ms)
+    //     .then(isEven(num))
+    //     .then((result) => console.log(result))
+    //     .catch((error) => console.log(error, "its ok, we handled it"));
+}
