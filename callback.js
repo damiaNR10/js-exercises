@@ -69,16 +69,16 @@ function slowOdd(n, ms = 100) {
 //Promise.all([x, y]).then(([xValue, yValue]) => console.log('All results: ', xValue, yValue))
 //Promise.race([x, y]).then((winner) => console.log('The winner is: ', winner))
 
-//1. Stwórz funkcję wait(ms). Ma ona zwrócić oczekującą (pending) obietnicę, 
+//7.5.1. Stwórz funkcję wait(ms). Ma ona zwrócić oczekującą (pending) obietnicę, 
 //która ma być dotrzymana (resolved) po wybranej ilości milisekund. Obietnica zwrócona z tej funkcji nie powinna być nigdy odrzucona (rejected).
 
 function wait(ms = 1000) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => resolve(), ms);
     });
 }
 
-//2. Stwórz funkcję delayedError(ms, message), która ma zwracać oczekującą obietnicę i odrzucić ją po zadym czasie w milisekundach (ms) 
+//7.5.2. Stwórz funkcję delayedError(ms, message), która ma zwracać oczekującą obietnicę i odrzucić ją po zadym czasie w milisekundach (ms) 
 //przekazując jej w wartości obiekt Error z zadaną wiadomością (message). Obietnica zwrócona z tej funkcji nie powinna być nigdy dotrzymana (resolved).
 
 function delayedError(ms = 1000, message) {
@@ -87,7 +87,7 @@ function delayedError(ms = 1000, message) {
     });
 }
 
-//3. Stwórz funkcję isEven(num), zwracającą obietnicę, która ma natychmiast być dotrzymana jeśli przekazana została liczba. 
+//7.5.3. Stwórz funkcję isEven(num), zwracającą obietnicę, która ma natychmiast być dotrzymana jeśli przekazana została liczba. 
 //Wartością ma być true jeśli liczba jest parzysta, false jeśli nieparzysta. Obietnica ma być natychmiast odrzucona jeśli is argument funkcji nie jest liczbą całkowitą.
 
 function isEven(num) {
@@ -104,38 +104,22 @@ function isEven(num) {
     });
 }
 
-//4. Stwórz funkcję slowIsEven(num, ms=1000), która robi to samo co funkcja isEven ale po zadanym czasie w milisekundach. 
+//7.5.4. Stwórz funkcję slowIsEven(num, ms=1000), która robi to samo co funkcja isEven ale po zadanym czasie w milisekundach. 
 //Wykorzystaj do implementacji funkcję isEven oraz wait.
 
 function slowIsEven(num, ms = 1000) {
 
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(isEven(num));
-        }, ms);
-        //resolve(isEven(num).then(wait(ms)));
-        //resolve(Promise.all([isEven(num), wait(ms)]))
-        //setTimeout(() => resolve(isEven(num)), ms);
-        // resolve(isEven(num).then(wait(ms)));
-        //resolve(wait(ms).then(isEven(num)));
-        //resolve(Promise.all([wait(ms), isEven(num)]));
         // setTimeout(() => {
         //     resolve(isEven(num));
         // }, ms);
+        resolve(
+            wait(ms).then(result => {isEven(num).then(result => console.log(result))})
+        );
     });
-
-    // isEven(num)
-    //     .then(wait(ms))
-    //     .then((result) => console.log(result))
-    //     .catch((error) => console.log(error, "its ok, we handled it"));
-
-    // wait(ms)
-    //     .then(isEven(num))
-    //     .then((result) => console.log(result))
-    //     .catch((error) => console.log(error, "its ok, we handled it"));
 }
 
-//5. Stwórz funkcję timeout(promise, ms=3000), zwracającą obietnicę, która ma być dotrzymana gdy przekazana obietnica zostanie dotrzymana i otrzymać jej wartość. 
+//7.5.5. Stwórz funkcję timeout(promise, ms=3000), zwracającą obietnicę, która ma być dotrzymana gdy przekazana obietnica zostanie dotrzymana i otrzymać jej wartość. 
 //Chyba, że upłynie zadany czas w milisekundach, to obietnica ma być odrzucona. Wykorzystaj do implementacji funkcję delayedError
 
 function timeout(promise, ms = 3000) {
@@ -196,3 +180,14 @@ function timeout(promise, ms = 3000) {
         // }, ms);
     });
 }
+
+//7.6.1 Stwórz asynchroniczną funkcję slowIsEven(num, ms=1000), 
+//która robi to samo co funkcja z zadania domowego w poprzedniej lekcji. Wykorzystaj do implementacji funkcje isEven oraz wait oraz słowo kluczowe await.
+
+// function slowIsEven(num, ms=1000) {
+//     return new Promise((resolve, reject) => {
+//         resolve(
+//             wait(ms).then(result => {isEven(num)})
+//         );
+//     })
+// }
