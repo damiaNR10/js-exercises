@@ -74,7 +74,7 @@ function slowOdd(n, ms = 100) {
 
 function wait(ms = 1000) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => resolve(console.log("Resolved")), ms);
+        setTimeout(() => resolve(), ms);
     });
 }
 
@@ -109,17 +109,90 @@ function isEven(num) {
 
 function slowIsEven(num, ms = 1000) {
 
-    // return new Promise((resolve, reject) => {
-    //     setTimeout(() => resolve(isEven(num)), ms);
-    // });
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(isEven(num));
+        }, ms);
+        //resolve(isEven(num).then(wait(ms)));
+        //resolve(Promise.all([isEven(num), wait(ms)]))
+        //setTimeout(() => resolve(isEven(num)), ms);
+        // resolve(isEven(num).then(wait(ms)));
+        //resolve(wait(ms).then(isEven(num)));
+        //resolve(Promise.all([wait(ms), isEven(num)]));
+        // setTimeout(() => {
+        //     resolve(isEven(num));
+        // }, ms);
+    });
 
-    isEven(num)
-        .then(wait(ms))
-        .then((result) => console.log(result))
-        .catch((error) => console.log(error, "its ok, we handled it"));
+    // isEven(num)
+    //     .then(wait(ms))
+    //     .then((result) => console.log(result))
+    //     .catch((error) => console.log(error, "its ok, we handled it"));
 
     // wait(ms)
     //     .then(isEven(num))
     //     .then((result) => console.log(result))
     //     .catch((error) => console.log(error, "its ok, we handled it"));
+}
+
+//5. Stwórz funkcję timeout(promise, ms=3000), zwracającą obietnicę, która ma być dotrzymana gdy przekazana obietnica zostanie dotrzymana i otrzymać jej wartość. 
+//Chyba, że upłynie zadany czas w milisekundach, to obietnica ma być odrzucona. Wykorzystaj do implementacji funkcję delayedError
+
+function timeout(promise, ms = 3000) {
+    //promise;
+    return new Promise((resolve, reject) => {
+        //resolve(promise.then(result => console.log(result)));
+
+        //promise.then(result => result ? resolve(console.log(result)) : reject(delayedError(1000, 'msg')));
+
+        //promise.then(result => resolve())
+        //promise.then(result => resolve(result));
+
+        // setTimeout(() => {
+        //     resolve(promise.then(result => console.log(result)));
+        //     reject(delayedError(1000, 'msg'));
+        // }, ms);
+
+        // promise.then(result => {resolve(console.log(result));reject(delayedError(1000, 'msg'));})
+        promise.then((result) => {
+            if(result) {
+                resolve(console.log(result));
+            } else {
+                reject(delayedError(1000, 'msg'));
+            }
+        });
+        // if() {
+        //     setTimeout(() => {
+        //         resolve(promise.then(result => console.log(result)));
+        //     }, ms)
+        // } else {
+        //     setTimeout(() => {
+        //         reject(delayedError(1000, 'msg'));
+        //     }, ms);
+        // }
+
+        // promise.then(result => {
+        //     setTimeout(() => {
+        //         console.log(result);
+        //     }, ms)
+        // });
+
+        // promise.catch(error => {
+        //     setTimeout(() => {
+        //         console.log(error);
+        //     })
+        // }, ms);
+
+        // setTimeout(() => {
+        //     promise
+        //     .then(() => resolve(promise.then(result => console.log(result))))
+        //     .catch(error => reject(error));
+        //     // if() {
+        //     //     resolve(promise.then(result => console.log(result)));
+        //     // } else {
+        //     //     reject(delayedError(1000, 'msg'));
+        //     // }
+
+        // }, ms);
+    });
 }
