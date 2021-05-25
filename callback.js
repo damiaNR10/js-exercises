@@ -113,9 +113,11 @@ function slowIsEven(num, ms = 1000) {
         // setTimeout(() => {
         //     resolve(isEven(num));
         // }, ms);
-        resolve(
-            wait(ms).then(result => {isEven(num).then(result => console.log(result))})
-        );
+        // resolve(
+        //     // wait(ms).then(result => {isEven(num).then(result => console.log(result))})
+        //     wait(ms).then(() => {isEven(num).then(result => )})
+        // );
+        wait(ms).then(() => {isEven(num).then(result => resolve(result))})
     });
 }
 
@@ -125,6 +127,50 @@ function slowIsEven(num, ms = 1000) {
 function timeout(promise, ms = 3000) {
     //promise;
     return new Promise((resolve, reject) => {
+
+        // resolve(promise.then(result => console.log(result)).catch(error => {reject(delayedError(5000, 'elo'))}));
+        // let done = null;
+
+        // promise.then((result) => {done = result});
+
+        // console.log(done);
+        let status = 'pending';
+        //promise;
+        promise.then((result) => {status = result});
+
+        //promise.then((result) => {status = result});
+
+        setTimeout(() => {
+            // resolve(promise.then());
+            // reject(delayedError(5000, 'elo'));
+            // resolve(promise.then());
+            // reject(delayedError(1000, 'elo'));
+
+            // promise.then((result) => {done = result; console.log('done w then:', done)});
+
+            // console.log('done:',done);
+
+            // promise.then((result) => {console.log(result); resolve(result)});
+            // reject(console.log('nie'));
+
+            //console.log(done.then(result => console.log(result)))
+
+            // let status = 'pending';
+
+            //promise.then((result) => {status = result});
+    
+            //console.log(status);
+
+            if(status != 'pending') {
+                resolve(promise.then(result => console.log(result)));
+            } else {
+                reject(delayedError(1000, 'error'));
+            }
+
+            //promise.then(result => resolve(console.log(result))).catch(error => reject(error));
+        }, ms);
+        //reject(promise.catch(delayedError(ms, 'Error!')));
+
         //resolve(promise.then(result => console.log(result)));
 
         //promise.then(result => result ? resolve(console.log(result)) : reject(delayedError(1000, 'msg')));
@@ -138,13 +184,13 @@ function timeout(promise, ms = 3000) {
         // }, ms);
 
         // promise.then(result => {resolve(console.log(result));reject(delayedError(1000, 'msg'));})
-        promise.then((result) => {
-            if(result) {
-                resolve(console.log(result));
-            } else {
-                reject(delayedError(1000, 'msg'));
-            }
-        });
+        // promise.then((result) => {
+        //     if(result) {
+        //         resolve(console.log(result));
+        //     } else {
+        //         reject(delayedError(1000, 'msg'));
+        //     }
+        // });
         // if() {
         //     setTimeout(() => {
         //         resolve(promise.then(result => console.log(result)));
