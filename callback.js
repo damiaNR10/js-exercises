@@ -237,3 +237,8 @@ function timeout(promise, ms = 3000) {
 //         );
 //     })
 // }
+
+//result1 = await slowRand(15, 400);
+//console.log('1:', result1);
+//result2 = await slowRand(13, 200);
+//console.log('2:', result2);
